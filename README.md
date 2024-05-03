@@ -27,13 +27,12 @@ CONFIG_FTRACE, CONFIG_KPROBES, CONFIG_UPROBES: Tracing options to allow debuggin
 ## Measuring Wakeup Latency
 
 ```bash
-cyclictest -m -t1 -p 90 -n -i 200 -l 10000
+sudo cyclictest -m -t1 -p 90 -i 200 -l 10000
 ```
 
 -m: Lock all memory to prevent swapping.
 -t1: One thread.
 -p 90: Set thread priority to 90.
--n: Use clock_nanosleep().
 -i 200: Interval of 200 microseconds between wake-ups.
 -l 10000: Run 10,000 intervals (loops)
 
