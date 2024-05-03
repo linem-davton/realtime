@@ -23,3 +23,8 @@ CONFIG_FTRACE, CONFIG_KPROBES, CONFIG_UPROBES: Tracing options to allow debuggin
 - CPU Affinity
 - Real-Time Scheduling - SCHED_FIFO, SCHED_RR
 - Avoid Signals like SIGKILL, SIGSTOP
+
+## References
+
+1. [Real-Time Linux Wiki](https://wiki.linuxfoundation.org/realtime/start)
+2. [Checklist for Writing Linux Real-Time Applications](https://www.youtube.com/watch?v=NrjXEaTSyrw)
