@@ -1,0 +1,12 @@
+[Unit]
+Description=Switch from NTP to PTP at boot
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/ntp2ptp.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+

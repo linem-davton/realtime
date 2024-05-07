@@ -1,0 +1,12 @@
+[Unit]
+Description=Synchronize system clock to PHC
+After=ptp-slave.service network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/phc2sys -a -r
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

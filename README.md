@@ -54,7 +54,6 @@ ptp4l -i eth0 -H -2 -s # starts as a slave
 ```
 
 ptp sync messages are exchanged between the master and slave nodes every second.
-
 To sync the system clock with ptp hardware clock in nic, use the following command.
 
 ```bash
@@ -63,54 +62,28 @@ phy2sys -a -r
 
 ### Using SystemD to start LinuxPTP
 
-Create a file /etc/systemd/system/ptp4l.service 
-
+Create a file /etc/systemd/system/ptp-slave.service  on slave nodes and /etc/systemd/system/ptp-master.service on the master node.
 Note - Taget is set as network-online.target to make sure the network is up before starting the service and not network.target
 
-```BASH
-[Unit]
-Description=Precision Time Protocol (PTP) daemon
-After=network-online.target
-
-[Service]
-Type=simple
-ExecStart=/usr/sbin/ptp4l -i eth0 -H -s -2 # Slave
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-```
-
-/etc/systemd/system/phc2sys.service 
+Likewise create /etc/systemd/system/phc2sys-slave.service on slave nodes and /etc/systemd/system/phc2sys-master.service on the master node.
+When system boots, we first sync time using NTP and then swicth to PTP. ntp2ptp.service is used for this purpose.
+- Create file /etc/systemd/system/ntp2ptp.service
+- Create file /usr/local/bin/ntp2ptp.sh 
+ 
+Setting up services 
 
 ```BASH
-[Unit]
-Description=Synchronize system clock to PHC
-After=ptp4l.service network-online.target
-
-[Service]
-Type=simple
-ExecStart=/usr/sbin/phc2sys -a -r
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Enabling and starting the services
-
-```BASH
-sudo systemctl daemon-reload
-systemctl enable ptp4l.service
-systemctl enable phc2sys.service
+sudo systemctl disable ptp-slave.service
+sudo systemctl enable ntp2ptp.service
+sudo systemctl enable phc2sys-slave.service
 ```
 
 Checking Logs
 
 ```BASH
-sudo journalctl -u ptp4l.service -u phc2sys.service # check the logs
-sudo journalctl -u ptp4l.service -f # follow the logs
-sudo journalctl -u ptp4l.service -b # logs from the boot
+sudo journalctl -u ptp-slave.service -u phc2sys.service # check the logs
+sudo journalctl -u ptp-slave.service -f # follow the logs
+sudo journalctl -u ptp-slave.service -b # logs from the boot
 ```
 
 ## References

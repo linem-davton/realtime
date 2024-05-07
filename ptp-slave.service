@@ -1,0 +1,12 @@
+[Unit]
+Description=Precision Time Protocol (PTP) daemon
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/ptp4l -i eth0 -H -s -2
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
