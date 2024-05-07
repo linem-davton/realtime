@@ -36,6 +36,81 @@ sudo cyclictest -m -t1 -p 90 -i 200 -l 10000
 -i 200: Interval of 200 microseconds between wake-ups.
 -l 10000: Run 10,000 intervals (loops)
 
+## LinuxPTP
+
+Diable the NTP on the slave nodes. Master node can have NTP enabled.
+
+```bash
+timedatectl set-ntp 0
+```
+
+Setting one Grand Master and multiple Slave nodes.
+
+```bash
+ethtool -T eth0 # check the time stamping capabilities
+
+ptp4l -i eth0 -H -2 # starts with hardware time stamping and ethernet trasnport, on interface eth0
+ptp4l -i eth0 -H -2 -s # starts as a slave
+```
+
+ptp sync messages are exchanged between the master and slave nodes every second.
+
+To sync the system clock with ptp hardware clock in nic, use the following command.
+
+```bash
+phy2sys -a -r
+```
+
+### Using SystemD to start LinuxPTP
+
+Create a file /etc/systemd/system/ptp4l.service 
+
+```BASH
+[Unit]
+Description=Precision Time Protocol (PTP) daemon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/ptp4l -i eth0 -H -s -2 # Slave
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+/etc/systemd/system/phc2sys.service 
+
+```BASH
+[Unit]
+Description=Synchronize system clock to PHC
+After=ptp4l.service network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/phc2sys -a -r
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enabling and starting the services
+
+```BASH
+sudo systemctl daemon-reload
+systemctl enable ptp4l.service
+systemctl enable phc2sys.service
+```
+
+Checking Logs
+
+```BASH
+sudo journalctl -u ptp4l.service -u phc2sys.service # check the logs
+sudo journalctl -u ptp4l.service -f # follow the logs
+sudo journalctl -u ptp4l.service -b # logs from the boot
+```
+
 ## References
 
 1. [Real-Time Linux Wiki](https://wiki.linuxfoundation.org/realtime/start)
