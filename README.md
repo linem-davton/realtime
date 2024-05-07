@@ -65,10 +65,12 @@ phy2sys -a -r
 
 Create a file /etc/systemd/system/ptp4l.service 
 
+Note - Taget is set as network-online.target to make sure the network is up before starting the service and not network.target
+
 ```BASH
 [Unit]
 Description=Precision Time Protocol (PTP) daemon
-After=network.target
+After=network-online.target
 
 [Service]
 Type=simple
@@ -84,7 +86,7 @@ WantedBy=multi-user.target
 ```BASH
 [Unit]
 Description=Synchronize system clock to PHC
-After=ptp4l.service network.target
+After=ptp4l.service network-online.target
 
 [Service]
 Type=simple
