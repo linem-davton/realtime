@@ -9,7 +9,7 @@ sudo cp -v systemdUnits/ntp2ptp.service /etc/systemd/system/ntp2ptp.service
 sudo cp -v systemdUnits/ntp2ptp.sh /usr/local/bin/ntp2ptp.sh
 
 # Make the scripts executable
-sudo chmod -v +x /usr/local/bin/ntp_to_ptp_switch.sh
+sudo chmod -v +x /usr/local/bin/ntp2ptp.sh
 
 # Starts ntp server at boot and then switches to ptp
 sudo systemctl enable ntp2ptp.service
