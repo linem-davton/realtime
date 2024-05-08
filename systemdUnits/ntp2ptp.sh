@@ -17,4 +17,4 @@ sudo systemctl stop systemd-timesyncd.service
 
 # Start PTP service
 echo "Starting PTP service..."
-sudo systemctl start ptp4-slave.service
+sudo systemctl start ptp-slave.service
