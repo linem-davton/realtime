@@ -57,15 +57,29 @@ ptp sync messages are exchanged between the master and slave nodes every second.
 To sync the system clock with ptp hardware clock in nic, use the following command.
 
 ```bash
-phy2sys -a -r
+phy2sys -a -r # sync system clock to ptp hardware clock
+phy2sys -a -r -r # sync ptp hardware clock to system clock
+```
+```
 ```
 
 ### Using SystemD to start LinuxPTP
 
-Create a file /etc/systemd/system/ptp-slave.service  on slave nodes and /etc/systemd/system/ptp-master.service on the master node.
-Note - Taget is set as network-online.target to make sure the network is up before starting the service and not network.target
 
-Likewise create /etc/systemd/system/phc2sys-slave.service on slave nodes and /etc/systemd/system/phc2sys-master.service on the master node.
+SystemD services:
+- nt2ptp.service
+- ptp-master.service
+- ptp-slave.service
+- phc2sys-master.service
+- phc2sys-slave.service
+
+slave-setup.sh : Setups the slave node including setting up the services and dowloading LinuxPTP.
+
+The script creates a file /etc/systemd/system/ptp-slave.service  on slave nodes.
+
+Note - Target is set as network-online.target to make sure the network is up before starting the service and not network.target
+
+Likewise also creates /etc/systemd/system/phc2sys-slave.service on slave node.
 When system boots, we first sync time using NTP and then swicth to PTP. ntp2ptp.service is used for this purpose.
 - Create file /etc/systemd/system/ntp2ptp.service
 - Create file /usr/local/bin/ntp2ptp.sh 
@@ -77,8 +91,9 @@ sudo systemctl disable ptp-slave.service
 sudo systemctl enable ntp2ptp.service
 sudo systemctl enable phc2sys-slave.service
 ```
+Note - slave-setup.sh does this automatically.
 
-Checking Logs
+### Monitoring the services
 
 ```BASH
 sudo journalctl -u ptp-slave.service -u phc2sys.service # check the logs
