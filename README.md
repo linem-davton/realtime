@@ -60,8 +60,6 @@ To sync the system clock with ptp hardware clock in nic, use the following comma
 phy2sys -a -r # sync system clock to ptp hardware clock
 phy2sys -a -r -r # sync ptp hardware clock to system clock
 ```
-```
-```
 
 ### Using SystemD to start LinuxPTP
 
