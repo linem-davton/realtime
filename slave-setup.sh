@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt install linuxptp
+sudo apt install linuxptp -y
 
 sudo timedatectl set-ntp 0 # disable ntp
 
@@ -13,6 +13,12 @@ sudo chmod -v +x /usr/local/bin/ntp2ptp.sh
 
 # Starts ntp server at boot and then switches to ptp
 sudo systemctl enable ntp2ptp.service
-sudo systemctl enable phc2sys-slave.service
 # Servce is not started by default rather started by ntp2ptp.sh
 sudo systemctl disable ptp-slave.service
+
+# Enable nic clock and sytem clock sync
+sudo systemctl enable phc2sys-slave.service
+
+# start the services
+sudo systemctl start ntp2ptp.service.service
+sudo systemctl start phc2sys-slave.service

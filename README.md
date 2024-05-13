@@ -93,6 +93,8 @@ sudo systemctl enable phc2sys-slave.service
 ```
 Note - slave-setup.sh does this automatically.
 
+master-setup.sh : Setups the master node including setting up the services and dowloading LinuxPTP.
+
 ### Monitoring the services
 
 ```BASH
@@ -100,6 +102,9 @@ sudo journalctl -u ptp-slave.service -u phc2sys.service # check the logs
 sudo journalctl -u ptp-slave.service -f # follow the logs
 sudo journalctl -u ptp-slave.service -b # logs from the boot
 ```
+system_monitor.py : Monitors the system and logs the data to influxdb, and can be visualized using Grafana.
+Change the interface variable in the python script to the interface used for PTP.
+
 
 ## References
 

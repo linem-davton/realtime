@@ -8,6 +8,11 @@ from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 
+# configuration variables
+interface = "enx381428f4865c"  # this is the network interface that the PTP data is collected from
+collection_interval = 1  # seconds
+
+# influxdb configuration - it is assumed that the credentials are stored in the environment variables
 token = os.environ.get("INFLUXDB_TOKEN")
 org = "ESLAB"
 url = "http://localhost:8086"
@@ -16,8 +21,6 @@ bucket = "ptp_metrics"
 # Initialize the database client
 client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 write_api = client.write_api(write_options=SYNCHRONOUS)
-
-interface = "enx381428f4865c"
 
 
 def collect_ptp_data():
@@ -109,11 +112,10 @@ def store_data(data, precision):
             .field("precision", precision)
         )
         # print("Storing Point", point)
-        write_api.write(bucket=bucket, org="ESLAB", record=point)
+        write_api.write(bucket=bucket, org=org, record=point)
 
 
 # Schedule this to run at regular intervals
-
 if __name__ == "__main__":
     while True:
         collect_ptp_data()
