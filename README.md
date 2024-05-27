@@ -106,6 +106,36 @@ system_monitor.py : Monitors the system and logs the data to influxdb, and can b
 
 grafana-dashboard.json : Import this dashboard to Grafana to visualize the data.
 
+## Setup InfluxDb
+Download: https://www.influxdata.com/downloads/
+```BASH
+sudo apt-get update && sudo apt-get install influxdb2
+systemctl start influxd
+systemctl enable influxd
+```
+
+Install influxdb_client
+```BASH
+pip3 install influxdb_client
+```
+
+#### Setup Influx on here:
+* http://localhost:8086/
+* Enter Username/Password (whatever)
+* ORG= ESLAB
+* Bucket= ptp_metrics
+
+Copy token from influxdb
+
+add at the end of the file
+```BASH
+nano .bashrc
+```
+add
+```BASH
+export INFLUXDB_TOKEN={token}
+```
+
 ## References
 
 1. [Real-Time Linux Wiki](https://wiki.linuxfoundation.org/realtime/start)
