@@ -20,5 +20,5 @@ sudo systemctl disable ptp-slave.service
 sudo systemctl enable phc2sys-slave.service
 
 # start the services
-sudo systemctl start ntp2ptp.service.service
+sudo systemctl start ntp2ptp.service
 sudo systemctl start phc2sys-slave.service
