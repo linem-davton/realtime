@@ -1,358 +1,363 @@
-          },
-          "showPoints": "auto",
-          "spanNulls": false,
-          "stacking": {
-            "group": "A",
-            "mode": "none"
-          },
-          "thresholdsStyle": {
-            "mode": "off"
-          }
-        },
-        "mappings": [],
-        "thresholds": {
-          "mode": "absolute",
-          "steps": [
-            {
-              "color": "green",
-              "value": null
-            },
-            {
-              "color": "red",
-              "value": 80
-            }
-          ]
-        }
-      },
-      "overrides": [
-        {
-          "__systemRef": "hideSeriesFrom",
-          "matcher": {
-            "id": "byNames",
-            "options": {
-              "mode": "exclude",
-              "names": [
-                "offset_from_master 2ccf67.fffe.1ee1d9-1"
-              ],
-              "prefix": "All except:",
-              "readOnly": true
-            }
-          },
-          "properties": [
-            {
-              "id": "custom.hideFrom",
-              "value": {
-                "legend": false,
-                "tooltip": false,
-                "viz": true
-              }
-            }
-          ]
-        }
-      ]
-    },
-    "gridPos": {
-      "h": 9,
-      "w": 10,
-      "x": 13,
-      "y": 0
-    },
-    "id": 3,
-    "options": {
-      "legend": {
-        "calcs": [],
-        "displayMode": "list",
-        "placement": "bottom",
-        "showLegend": true
-      },
-      "tooltip": {
-        "mode": "single",
-        "sort": "none"
-      }
-    },
-    "targets": [
+{
+  "annotations": {
+    "list": [
       {
+        "builtIn": 1,
         "datasource": {
-          "type": "influxdb",
-          "uid": "ddlanltcbdgjke"
+          "type": "grafana",
+          "uid": "-- Grafana --"
         },
-        "query": "from(bucket: \"ptp_metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ptp\")\n  |> filter(fn: (r) => r[\"_field\"] == \"offset_from_master\")\n  |> filter(fn: (r) => r[\"device_id\"] == \"2ccf67.fffe.1edd71-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee06d-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee171-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee1d9-1\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
-        "refId": "A"
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
       }
-    ],
-    "title": "Offsets from GM",
-    "type": "timeseries"
+    ]
   },
-  {
-    "datasource": {
-      "type": "influxdb",
-      "uid": "ddlanltcbdgjke"
-    },
-    "description": "Path Delay between from GrandMaster to slave nodes. ",
-    "fieldConfig": {
-      "defaults": {
-        "color": {
-          "mode": "palette-classic"
-        },
-        "custom": {
-          "axisBorderShow": false,
-          "axisCenteredZero": false,
-          "axisColorMode": "text",
-          "axisLabel": "",
-          "axisPlacement": "auto",
-          "barAlignment": 0,
-          "drawStyle": "line",
-          "fillOpacity": 0,
-          "gradientMode": "none",
-          "hideFrom": {
-            "legend": false,
-            "tooltip": false,
-            "viz": false
-          },
-          "insertNulls": false,
-          "lineInterpolation": "linear",
-          "lineWidth": 1,
-          "pointSize": 5,
-          "scaleDistribution": {
-            "type": "linear"
-          },
-          "showPoints": "auto",
-          "spanNulls": false,
-          "stacking": {
-            "group": "A",
-            "mode": "none"
-          },
-          "thresholdsStyle": {
-            "mode": "off"
-          }
-        },
-        "mappings": [],
-        "thresholds": {
-          "mode": "absolute",
-          "steps": [
-            {
-              "color": "green",
-              "value": null
-            },
-            {
-              "color": "red",
-              "value": 80
-            }
-          ]
-        }
-      },
-      "overrides": []
-    },
-    "gridPos": {
-      "h": 11,
-      "w": 13,
-      "x": 0,
-      "y": 9
-    },
-    "id": 2,
-    "options": {
-      "legend": {
-        "calcs": [],
-        "displayMode": "list",
-        "placement": "bottom",
-        "showLegend": true
-      },
-      "tooltip": {
-        "mode": "single",
-        "sort": "none"
-      }
-    },
-    "targets": [
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "ddlanltcbdgjke"
-        },
-        "query": "from(bucket: \"ptp_metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ptp\")\n  |> filter(fn: (r) => r[\"_field\"] == \"mean_path_delay\")\n  |> filter(fn: (r) => r[\"device_id\"] == \"2ccf67.fffe.1edd71-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee06d-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee171-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee1d9-1\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
-        "refId": "A"
-      }
-    ],
-    "title": "Path Delay",
-    "type": "timeseries"
-  }
-],
-"refresh": "1s",
-"schemaVersion": 39,
-"tags": [],
-"templating": {
-  "list": []
-},
-"time": {
-  "from": "now-5m",
-  "to": "now"
-},
-"timepicker": {
-  "refresh_intervals": [
-    "1s",
-    "3s",
-    "5s",
-    "10s",
-    "30s",
-    "1m",
-    "5m",
-    "15m",
-    "30m",
-    "1h",
-    "2h",
-    "1d"
-  ]
-},
-"timezone": "browser",
-"title": "Cluster1",
-"uid": "fdlao1u5trncwc",
-"version": 11,
-"weekStart": ""
-}{
-"annotations": {
-  "list": [
+  "description": "Cluster Time Precision, offset, and delay",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "panels": [
     {
-      "builtIn": 1,
       "datasource": {
-        "type": "grafana",
-        "uid": "-- Grafana --"
+        "type": "influxdb",
+        "uid": "ddlanltcbdgjke"
       },
-      "enable": true,
-      "hide": true,
-      "iconColor": "rgba(0, 211, 255, 1)",
-      "name": "Annotations & Alerts",
-      "type": "dashboard"
-    }
-  ]
-},
-"description": "Cluster Time Precision, offset, and delay",
-"editable": true,
-"fiscalYearStartMonth": 0,
-"graphTooltip": 0,
-"id": 1,
-"links": [],
-"panels": [
-  {
-    "datasource": {
-      "type": "influxdb",
-      "uid": "ddlanltcbdgjke"
-    },
-    "description": "The precision of Global time base. Max offset - Min offset. ",
-    "fieldConfig": {
-      "defaults": {
-        "color": {
-          "mode": "palette-classic"
-        },
-        "custom": {
-          "axisBorderShow": false,
-          "axisCenteredZero": false,
-          "axisColorMode": "text",
-          "axisLabel": "",
-          "axisPlacement": "auto",
-          "barAlignment": 0,
-          "drawStyle": "line",
-          "fillOpacity": 0,
-          "gradientMode": "none",
-          "hideFrom": {
-            "legend": false,
-            "tooltip": false,
-            "viz": false
+      "description": "The precision of Global time base. Max offset - Min offset. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
           },
-          "insertNulls": false,
-          "lineInterpolation": "linear",
-          "lineWidth": 1,
-          "pointSize": 5,
-          "scaleDistribution": {
-            "type": "linear"
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
-          "showPoints": "auto",
-          "spanNulls": false,
-          "stacking": {
-            "group": "A",
-            "mode": "none"
-          },
-          "thresholdsStyle": {
-            "mode": "off"
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           }
         },
-        "mappings": [],
-        "thresholds": {
-          "mode": "absolute",
-          "steps": [
-            {
-              "color": "green",
-              "value": null
-            },
-            {
-              "color": "red",
-              "value": 80
-            }
-          ]
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 13,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "overrides": []
-    },
-    "gridPos": {
-      "h": 9,
-      "w": 13,
-      "x": 0,
-      "y": 0
-    },
-    "id": 1,
-    "options": {
-      "legend": {
-        "calcs": [],
-        "displayMode": "list",
-        "placement": "bottom",
-        "showLegend": true
-      },
-      "tooltip": {
-        "mode": "single",
-        "sort": "none"
-      }
-    },
-    "targets": [
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "ddlanltcbdgjke"
-        },
-        "query": "from(bucket: \"ptp_metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ptp\")\n  |> filter(fn: (r) => r[\"_field\"] == \"precision\")\n  |> filter(fn: (r) => r[\"device_id\"] == \"2ccf67.fffe.1edd71-1\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
-        "refId": "A"
-      }
-    ],
-    "title": "Precision of Global Time Base",
-    "transparent": true,
-    "type": "timeseries"
-  },
-  {
-    "datasource": {
-      "type": "influxdb",
-      "uid": "ddlanltcbdgjke"
-    },
-    "description": "Offset of clocks from GM clock",
-    "fieldConfig": {
-      "defaults": {
-        "color": {
-          "mode": "palette-classic"
-        },
-        "custom": {
-          "axisBorderShow": false,
-          "axisCenteredZero": false,
-          "axisColorMode": "text",
-          "axisLabel": "",
-          "axisPlacement": "auto",
-          "barAlignment": 0,
-          "drawStyle": "line",
-          "fillOpacity": 0,
-          "gradientMode": "none",
-          "hideFrom": {
-            "legend": false,
-            "tooltip": false,
-            "viz": false
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddlanltcbdgjke"
           },
-          "insertNulls": false,
-          "lineInterpolation": "linear",
-          "lineWidth": 1,
-          "pointSize": 5,
-          "scaleDistribution": {
-            "type": "linear"
+          "query": "from(bucket: \"ptp_metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ptp\")\n  |> filter(fn: (r) => r[\"_field\"] == \"precision\")\n  |> filter(fn: (r) => r[\"device_id\"] == \"2ccf67.fffe.1edd71-1\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Precision of Global Time Base",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddlanltcbdgjke"
+      },
+      "description": "Offset of clocks from GM clock",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "offset_from_master 2ccf67.fffe.1ee1d9-1"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 10,
+        "x": 13,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddlanltcbdgjke"
+          },
+          "query": "from(bucket: \"ptp_metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ptp\")\n  |> filter(fn: (r) => r[\"_field\"] == \"offset_from_master\")\n  |> filter(fn: (r) => r[\"device_id\"] == \"2ccf67.fffe.1edd71-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee06d-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee171-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee1d9-1\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Offsets from GM",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "ddlanltcbdgjke"
+      },
+      "description": "Path Delay between from GrandMaster to slave nodes. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 13,
+        "x": 0,
+        "y": 9
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "ddlanltcbdgjke"
+          },
+          "query": "from(bucket: \"ptp_metrics\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ptp\")\n  |> filter(fn: (r) => r[\"_field\"] == \"mean_path_delay\")\n  |> filter(fn: (r) => r[\"device_id\"] == \"2ccf67.fffe.1edd71-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee06d-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee171-1\" or r[\"device_id\"] == \"2ccf67.fffe.1ee1d9-1\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Path Delay",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "1s",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timeRangeUpdatedDuringEditOrView": false,
+  "timepicker": {
+    "refresh_intervals": [
+      "1s",
+      "3s",
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Cluster1",
+  "uid": "fdlao1u5trncwc",
+  "version": 11,
+  "weekStart": ""
+}
