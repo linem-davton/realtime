@@ -1,0 +1,29 @@
+# Precision GLoabl Time Base
+
+from(bucket: "ptp_metrics")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "ptp")
+  |> filter(fn: (r) => r["_field"] == "precision")
+  |> filter(fn: (r) => r["device_id"] == "2ccf67.fffe.1edd71-1")
+  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
+  |> yield(name: "mean")
+
+# Offset from GM
+
+from(bucket: "ptp_metrics")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "ptp")
+  |> filter(fn: (r) => r["_field"] == "offset_from_master")
+  |> filter(fn: (r) => r["device_id"] == "2ccf67.fffe.1edd71-1" or r["device_id"] == "2ccf67.fffe.1ee06d-1" or r["device_id"] == "2ccf67.fffe.1ee171-1" or r["device_id"] == "2ccf67.fffe.1ee1d9-1")
+  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
+  |> yield(name: "mean")
+
+# Path Delay
+
+from(bucket: "ptp_metrics")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "ptp")
+  |> filter(fn: (r) => r["_field"] == "offset_from_master")
+  |> filter(fn: (r) => r["device_id"] == "2ccf67.fffe.1edd71-1" or r["device_id"] == "2ccf67.fffe.1ee06d-1" or r["device_id"] == "2ccf67.fffe.1ee171-1" or r["device_id"] == "2ccf67.fffe.1ee1d9-1")
+  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
+  |> yield(name: "mean")
